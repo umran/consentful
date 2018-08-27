@@ -1,0 +1,35 @@
+{
+  "name": "consentful",
+  "version": "0.0.0",
+  "description": "A digital escrow protocol",
+  "main": "lib/index.js",
+  "dependencies": {
+    "ajv": "^6.5.3",
+    "chai": "^4.1.2",
+    "dinero.js": "^1.4.0",
+    "tweetnacl": "^1.0.0",
+    "tweetnacl-util": "^0.15.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umran/consentful.git"
+  },
+  "keywords": [
+    "digital",
+    "escrow"
+  ],
+  "author": "Ahmed Umran Hussain",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/umran/consentful/issues"
+  },
+  "homepage": "https://github.com/umran/consentful#readme",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "definitions": {},
+  "$schema": "",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "orderId",
+    "manifest",
+    "manifestTotalPreTax",
+    "manifestTotalPostTax",
+    "feeProfile",
+    "feeTotalPreTax",
+    "feeTotalPostTax",
+    "feeMerchantPreTax",
+    "feeMerchantPostTax",
+    "feeConsumerPreTax",
+    "feeConsumerPostTax",
+    "totalMerchantPaymentPreTax",
+    "totalMerchantPaymentPostTax",
+    "totalConsumerPaymentPreTax",
+    "totalConsumerPaymentPostTax"
+  ],
+  "properties": {
+    "type": {
+      "$id": "#/properties/type",
+      "type": "string",
+      "title": "The Type Schema",
+      "examples": [
+        "invoice"
+      ],
+      "maxLength": 255,
+      "pattern": "^(.*)$"
+    },
+    "orderId": {
+      "$id": "#/properties/orderId",
+      "type": "string",
+      "title": "The Orderid Schema",
+      "examples": [
+        "jo8L+5hk1SAxvZfK9G4DjI1jurT/mlCIIZkJS5f+/X8="
+      ],
+      "minLength": 44,
+      "maxLength": 44,
+      "pattern": "^(.*)$"
+    },
+    "manifest": {
+      "$id": "#/properties/manifest",
+      "type": "array",
+      "title": "The Manifest Schema",
+      "minItems": 1,
+      "maxItems": 255,
+      "items": {
+        "$id": "#/properties/manifest/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "additionalProperties": false,
+        "required": [
+          "item",
+          "quantity",
+          "price",
+          "tax"
+        ],
+        "properties": {
+          "item": {
+            "$id": "#/properties/manifest/items/properties/item",
+            "type": "string",
+            "title": "The Item Schema",
+            "examples": [
+              "pizza"
+            ],
+            "maxLength": 255,
+            "pattern": "^(.*)$"
+          },
+          "quantity": {
+            "$id": "#/properties/manifest/items/properties/quantity",
+            "type": "integer",
+            "title": "The Quantity Schema",
+            "examples": [
+              2
+            ]
+          },
+          "price": {
+            "$id": "#/properties/manifest/items/properties/price",
+            "type": "number",
+            "title": "The Price Schema",
+            "examples": [
+              149.99
+            ]
+          },
+          "tax": {
+            "$id": "#/properties/manifest/items/properties/tax",
+            "type": "number",
+            "title": "The Tax Schema",
+            "examples": [
+              12.0
+            ],
+            "minimum": 0.0,
+            "maximum": 100.0
+          }
+        }
+      }
+    },
+    "manifestTotalPreTax": {
+      "$id": "#/properties/manifestTotalPreTax",
+      "type": "number",
+      "title": "The Manifesttotalpretax Schema",
+      "examples": [
+        299.98
+      ]
+    },
+    "manifestTotalPostTax": {
+      "$id": "#/properties/manifestTotalPostTax",
+      "type": "number",
+      "title": "The Manifesttotalposttax Schema",
+      "examples": [
+        335.98
+      ]
+    },
+    "feeProfile": {
+      "$id": "#/properties/feeProfile",
+      "type": "object",
+      "title": "The Feeprofile Schema",
+      "additionalProperties": false,
+      "required": [
+        "baseFee",
+        "variableFee",
+        "tax",
+        "merchantBurden"
+      ],
+      "properties": {
+        "baseFee": {
+          "$id": "#/properties/feeProfile/properties/baseFee",
+          "type": "number",
+          "title": "The Basefee Schema",
+          "examples": [
+            5
+          ]
+        },
+        "variableFee": {
+          "$id": "#/properties/feeProfile/properties/variableFee",
+          "type": "number",
+          "title": "The Variablefee Schema",
+          "examples": [
+            2.0
+          ],
+          "minimum": 0.0,
+          "maximum": 100.0
+        },
+        "tax": {
+          "$id": "#/properties/feeProfile/properties/tax",
+          "type": "number",
+          "title": "The Tax Schema",
+          "examples": [
+            12.0
+          ],
+          "minimum": 0.0,
+          "maximum": 100.0
+        },
+        "merchantBurden": {
+          "$id": "#/properties/feeProfile/properties/merchantBurden",
+          "type": "number",
+          "title": "The Merchantburden Schema",
+          "examples": [
+            50
+          ],
+          "minimum": 0.0,
+          "maximum": 100.0
+        }
+      }
+    },
+    "feeTotalPreTax": {
+      "$id": "#/properties/feeTotalPreTax",
+      "type": "number",
+      "title": "The Feetotalpretax Schema",
+      "examples": [
+        11
+      ]
+    },
+    "feeTotalPostTax": {
+      "$id": "#/properties/feeTotalPostTax",
+      "type": "number",
+      "title": "The Feetotalposttax Schema",
+      "examples": [
+        12.32
+      ]
+    },
+    "feeMerchantPreTax": {
+      "$id": "#/properties/feeMerchantPreTax",
+      "type": "number",
+      "title": "The Feemerchantpretax Schema",
+      "examples": [
+        5.5
+      ]
+    },
+    "feeMerchantPostTax": {
+      "$id": "#/properties/feeMerchantPostTax",
+      "type": "number",
+      "title": "The Feemerchantposttax Schema",
+      "examples": [
+        6.16
+      ]
+    },
+    "feeConsumerPreTax": {
+      "$id": "#/properties/feeConsumerPreTax",
+      "type": "number",
+      "title": "The Feeconsumerpretax Schema",
+      "examples": [
+        5.5
+      ]
+    },
+    "feeConsumerPostTax": {
+      "$id": "#/properties/feeConsumerPostTax",
+      "type": "number",
+      "title": "The Feeconsumerposttax Schema",
+      "examples": [
+        6.16
+      ]
+    },
+    "totalMerchantPaymentPreTax": {
+      "$id": "#/properties/totalMerchantPaymentPreTax",
+      "type": "number",
+      "title": "The Totalmerchantpaymentpretax Schema",
+      "examples": [
+        6.16
+      ]
+    },
+    "totalMerchantPaymentPostTax": {
+      "$id": "#/properties/totalMerchantPaymentPostTax",
+      "type": "number",
+      "title": "The Totalmerchantpaymentposttax Schema",
+      "examples": [
+        6.16
+      ]
+    },
+    "totalConsumerPaymentPreTax": {
+      "$id": "#/properties/totalConsumerPaymentPreTax",
+      "type": "number",
+      "title": "The Totalconsumerpaymentpretax Schema",
+      "examples": [
+        6.16
+      ]
+    },
+    "totalConsumerPaymentPostTax": {
+      "$id": "#/properties/totalConsumerPaymentPostTax",
+      "type": "number",
+      "title": "The Totalconsumerpaymentposttax Schema",
+      "examples": [
+        6.16
+      ]
+    }
+  }
+}

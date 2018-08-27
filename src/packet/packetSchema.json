@@ -1,0 +1,72 @@
+{
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "minProperties": 2,
+  "maxProperties": 2,
+  "additionalProperties": false,
+  "properties": {
+    "header": {
+      "$id": "/properties/header",
+      "type": "object",
+      "minProperties": 4,
+      "maxProperties": 4,
+      "additionalProperties": false,
+      "properties": {
+        "signature": {
+          "$id": "/properties/header/properties/signature",
+          "type": "string",
+          "title": "The Signature Schema ",
+          "examples": [
+            "Oh2BQJvb4ZMOQlt59xd8sgm4P6FI5qQzlVOLFrwo69jA97bBEh7/Mbm8gJpF4Ll+BeqXfZ8I6xu1IIW1i1PTDA=="
+          ],
+          "minLength": 88,
+          "maxLength": 88
+        },
+        "ephemeralPublicKey": {
+          "$id": "/properties/header/properties/ephemeralPublicKey",
+          "type": "string",
+          "title": "The Ephemeralpublickey Schema ",
+          "examples": [
+            "OeJFDGPTXNnHpV+6Ciu8MCCPrOQ71sJys8qOle2gbOw="
+          ],
+          "minLength": 44,
+          "maxLength": 44
+        },
+        "ephemeralPublicKeyCertificate": {
+          "$id": "/properties/header/properties/ephemeralPublicKeyCertificate",
+          "type": "string",
+          "title": "The Ephemeralpublickeycertificate Schema ",
+          "examples": [
+            "TtQ2ACSWdRVCmL8oSahljhA2w6szLniAxnoP9dljwvhsgD78aWtt4cLu9OLCn6qRRuxGqN2KHlMHwzNWiSg9Ag=="
+          ],
+          "minLength": 88,
+          "maxLength": 88
+        },
+        "identityPublicKey": {
+          "$id": "/properties/header/properties/identityPublicKey",
+          "type": "string",
+          "title": "The Identitypublickey Schema ",
+          "examples": [
+            "3BYm8D8A8doR+Zg/uvYprpGAHRyH/59ILxtOyN+X3gs="
+          ],
+          "minLength": 44,
+          "maxLength": 44
+        }
+      },
+      "required": [
+        "signature",
+        "ephemeralPublicKey",
+        "ephemeralPublicKeyCertificate",
+        "identityPublicKey"
+      ]
+    },
+    "body": {
+      "$id": "/properties/body",
+      "type": "object"
+    }
+  },
+  "required": [
+    "header",
+    "body"
+  ]
+}
