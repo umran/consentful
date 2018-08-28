@@ -1,4 +1,4 @@
-module.exports = {
+{
   "definitions": {},
   "$schema": "",
   "$id": "http://example.com/root.json",
@@ -8,7 +8,7 @@ module.exports = {
   "required": [
     "type",
     "orderId",
-    "invoiceReceipt"
+    "paymentRequest"
   ],
   "properties": {
     "type": {
@@ -16,7 +16,7 @@ module.exports = {
       "type": "string",
       "title": "The Type Schema",
       "examples": [
-        "promiseOfPayment"
+        "escrowContract"
       ],
       "maxLength": 255,
       "pattern": "^(.*)$"
@@ -32,10 +32,10 @@ module.exports = {
       "maxLength": 44,
       "pattern": "^(.*)$"
     },
-    "invoiceReceipt": {
-      "$id": "#/properties/invoiceReceipt",
+    "paymentRequest": {
+      "$id": "#/properties/paymentRequest",
       "type": "object",
-      "title": "The Invoicereceipt Schema",
+      "title": "The Paymentrequest Schema",
       "additionalProperties": false,
       "required": [
         "signature",
