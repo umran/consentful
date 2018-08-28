@@ -1,5 +1,5 @@
 var Ajv = require('ajv')
-const schema = require('../schemas/invoiceReceipt')
+const schema = require('../schemas').invoiceReceipt
 
 var ajv = new Ajv({allErrors: true})
 var validate = ajv.compile(schema)
