@@ -1,6 +1,6 @@
 {
   "name": "consentful",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "A digital escrow protocol",
   "main": "lib/index.js",
   "dependencies": {
