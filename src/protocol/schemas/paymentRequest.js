@@ -1,4 +1,4 @@
-{
+module.exports = {
   "definitions": {},
   "$schema": "",
   "$id": "http://example.com/root.json",
