@@ -16,6 +16,8 @@ const feeProfile = {
   merchantBurden: 50
 }
 
+const delivery = true
+
 const transaction = generateTransaction(manifest, feeProfile)
 
 let invoice = new Invoice({type: 'send', identityKeys: idKeys})

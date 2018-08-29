@@ -7,19 +7,8 @@
   "additionalProperties": false,
   "required": [
     "type",
-    "orderId"
-  ],
-  "oneOf": [
-    {
-      "required": [
-        "escrowContract"
-      ]
-    },
-    {
-      "required": [
-        "pickupReceipt"
-      ]
-    }
+    "orderId",
+    "escrowContract"
   ],
   "properties": {
     "type": {
@@ -27,7 +16,7 @@
       "type": "string",
       "title": "The Type Schema",
       "examples": [
-        "proofOfDelivery"
+        "pickupRequest"
       ],
       "maxLength": 255,
       "pattern": "^(.*)$"
@@ -47,64 +36,6 @@
       "$id": "#/properties/escrowContract",
       "type": "object",
       "title": "The Escrowcontract Schema",
-      "additionalProperties": false,
-      "required": [
-        "signature",
-        "ephemeralPublicKey",
-        "ephemeralPublicKeyCertificate",
-        "identityPublicKey"
-      ],
-      "properties": {
-        "signature": {
-          "$id": "#/properties/invoice/properties/signature",
-          "type": "string",
-          "title": "The Signature Schema",
-          "examples": [
-            "jo8L+5hk1SAxvZfK9G4DjI1jurT/mlCIIZkJS5f+/X8=jo8L+5hk1SAxvZfK9G4DjI1jurT/mlCIIZkJS5f+/X8="
-          ],
-          "minLength": 88,
-          "maxLength": 88,
-          "pattern": "^(.*)$"
-        },
-        "ephemeralPublicKey": {
-          "$id": "#/properties/invoice/properties/ephemeralPublicKey",
-          "type": "string",
-          "title": "The Ephemeralpublickey Schema",
-          "examples": [
-            "jo8L+5hk1SAxvZfK9G4DjI1jurT/mlCIIZkJS5f+/X8="
-          ],
-          "minLength": 44,
-          "maxLength": 44,
-          "pattern": "^(.*)$"
-        },
-        "ephemeralPublicKeyCertificate": {
-          "$id": "#/properties/invoice/properties/ephemeralPublicKeyCertificate",
-          "type": "string",
-          "title": "The Ephemeralpublickeycertificate Schema",
-          "examples": [
-            "jo8L+5hk1SAxvZfK9G4DjI1jurT/mlCIIZkJS5f+/X8=jo8L+5hk1SAxvZfK9G4DjI1jurT/mlCIIZkJS5f+/X8="
-          ],
-          "minLength": 88,
-          "maxLength": 88,
-          "pattern": "^(.*)$"
-        },
-        "identityPublicKey": {
-          "$id": "#/properties/invoice/properties/identityPublicKey",
-          "type": "string",
-          "title": "The Identitypublickey Schema",
-          "examples": [
-            "jo8L+5hk1SAxvZfK9G4DjI1jurT/mlCIIZkJS5f+/X8="
-          ],
-          "minLength": 44,
-          "maxLength": 44,
-          "pattern": "^(.*)$"
-        }
-      }
-    },
-    "pickupReceipt": {
-      "$id": "#/properties/pickupReceipt",
-      "type": "object",
-      "title": "The Pickupreceipt Schema",
       "additionalProperties": false,
       "required": [
         "signature",

@@ -5,6 +5,8 @@ const Invoice = require('../messages').Invoice
 const InvoiceReceipt = require('../messages').InvoiceReceipt
 const PromiseOfPayment = require('../messages').PromiseOfPayment
 const PaymentRequest = require('../messages').PaymentRequest
+const PickupRequest = require('../messages').PickupRequest
+const PickupReceipt = require('../messages').PickupReceipt
 const EscrowContract = require('../messages').EscrowContract
 const ProofOfDelivery = require('../messages').ProofOfDelivery
 
@@ -82,7 +84,7 @@ class TransactionChain {
 
   // check invoiceReceipt
   _checkInvoiceReceipt() {
-    let invoice = this._checkInvoice()
+    const invoice = this._checkInvoice()
 
     const invoiceReceiptPacket = {
       header: {
@@ -104,7 +106,7 @@ class TransactionChain {
 
   // check promiseOfPayment
   _checkPromiseOfPayment() {
-    let invoiceReceipt = this._checkInvoiceReceipt()
+    const invoiceReceipt = this._checkInvoiceReceipt()
 
     const promiseOfPaymentPacket = {
       header: {
@@ -129,7 +131,7 @@ class TransactionChain {
     // ensure that the math in the paymentRequestForm tallies with the math in the authoritative invoice and that it references the right order
     this._verifyPaymentRequestFormFields()
 
-    let promiseOfPayment = this._checkPromiseOfPayment()
+    const promiseOfPayment = this._checkPromiseOfPayment()
 
     const paymentRequestPacket = {
       header: {
@@ -152,7 +154,7 @@ class TransactionChain {
 
   // check escrowContract
   _checkEscrowContract() {
-    let paymentRequest = this._checkPaymentRequest()
+    const paymentRequest = this._checkPaymentRequest()
 
     const escrowContractPacket = {
       header: {
@@ -172,21 +174,85 @@ class TransactionChain {
     return new EscrowContract({type: 'receive', packet: escrowContractPacket})
   }
 
-  // check proofOfDelivery
-  _checkProofOfDelivery() {
-    let escrowContract = this._checkEscrowContract()
+  // check pickupRequest
+  _checkPickupRequest() {
+    const escrowContract = this._checkEscrowContract()
 
-    const proofOfDeliveryPacket = {
+    const pickupRequestPacket = {
       header: {
-        signature: this._metaData.proofOfDelivery.signature,
-        ephemeralPublicKey: this._metaData.proofOfDelivery.ephemeralPublicKey,
-        ephemeralPublicKeyCertificate: this._metaData.proofOfDelivery.ephemeralPublicKeyCertificate,
-        identityPublicKey: this._identities.consumer
+        signature: this._metaData.pickupRequest.signature,
+        ephemeralPublicKey: this._metaData.pickupRequest.ephemeralPublicKey,
+        ephemeralPublicKeyCertificate: this._metaData.pickupRequest.ephemeralPublicKeyCertificate,
+        identityPublicKey: this._identities.merchant
       },
       body: {
-        type: 'proofOfDelivery',
+        type: 'pickupRequest',
         orderId: this._orderId,
         escrowContract: escrowContract.readMeta()
+      }
+    }
+
+    // implicitly verify packet by constructing new received packet
+    return new PickupRequest({type: 'receive', packet: pickupRequestPacket})
+  }
+
+  // check pickupReceipt
+  _checkPickupReceipt() {
+    const pickupRequest = this._checkPickupRequest()
+
+    const pickupReceiptPacket = {
+      header: {
+        signature: this._metaData.pickupReceipt.signature,
+        ephemeralPublicKey: this._metaData.pickupReceipt.ephemeralPublicKey,
+        ephemeralPublicKeyCertificate: this._metaData.pickupReceipt.ephemeralPublicKeyCertificate,
+        identityPublicKey: this._identities.authority
+      },
+      body: {
+        type: 'pickupReceipt',
+        orderId: this._orderId,
+        pickupRequest: pickupRequest.readMeta()
+      }
+    }
+
+    // implicitly verify packet by constructing new received packet
+    return new PickupReceipt({type: 'receive', packet: pickupReceiptPacket})
+  }
+
+  // check proofOfDelivery
+  _checkProofOfDelivery() {
+    let proofOfDeliveryPacket
+
+    if(this._invoiceMessage.delivery === true) {
+      const pickupReceipt = this._checkPickupReceipt()
+
+      proofOfDeliveryPacket = {
+        header: {
+          signature: this._metaData.proofOfDelivery.signature,
+          ephemeralPublicKey: this._metaData.proofOfDelivery.ephemeralPublicKey,
+          ephemeralPublicKeyCertificate: this._metaData.proofOfDelivery.ephemeralPublicKeyCertificate,
+          identityPublicKey: this._identities.consumer
+        },
+        body: {
+          type: 'proofOfDelivery',
+          orderId: this._orderId,
+          pickupReceipt: pickupReceipt.readMeta()
+        }
+      }
+    } else {
+      const escrowContract = this._checkEscrowContract()
+
+      proofOfDeliveryPacket = {
+        header: {
+          signature: this._metaData.proofOfDelivery.signature,
+          ephemeralPublicKey: this._metaData.proofOfDelivery.ephemeralPublicKey,
+          ephemeralPublicKeyCertificate: this._metaData.proofOfDelivery.ephemeralPublicKeyCertificate,
+          identityPublicKey: this._identities.consumer
+        },
+        body: {
+          type: 'proofOfDelivery',
+          orderId: this._orderId,
+          escrowContract: escrowContract.readMeta()
+        }
       }
     }
 
@@ -216,6 +282,14 @@ class TransactionChain {
     this._metaData.escrowContract = escrowContractMeta
   }
 
+  setPickupRequest(pickupRequestMeta) {
+    this._metaData.pickupRequest = pickupRequestMeta
+  }
+
+  setPickupReceipt(pickupReceiptMeta) {
+    this._metaData.pickupReceipt = pickupReceiptMeta
+  }
+
   setProofOfDelivery(proofOfDeliveryMeta) {
     this._metaData.proofOfDelivery = proofOfDeliveryMeta
   }
@@ -238,6 +312,14 @@ class TransactionChain {
 
   checkEscrowContract() {
     return this._checkEscrowContract()
+  }
+
+  checkPickupRequest() {
+    return this._checkPickupRequest()
+  }
+
+  checkPickupReceipt() {
+    return this._checkPickupReceipt()
   }
 
   checkProofOfDelivery() {

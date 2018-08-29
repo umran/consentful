@@ -1,12 +1,13 @@
 const calculateInvoice = require('../accounting').calculateInvoice
 const generateOrderId = require('../../utilities').generateOrderId
 
-module.exports = function(manifest, feeProfile) {
+module.exports = function(manifest, feeProfile, delivery = false) {
   const orderId = generateOrderId()
   const calculatedFields = calculateInvoice(manifest, feeProfile)
 
   const invoice = {
     type: 'invoice',
+    delivery: delivery,
     orderId: orderId,
     manifest: manifest,
     manifestTotalPreTax: calculatedFields.manifestTotalPreTax,

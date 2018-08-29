@@ -7,6 +7,7 @@
   "additionalProperties": false,
   "required": [
     "type",
+    "delivery",
     "orderId",
     "manifest",
     "manifestTotalPreTax",
@@ -33,6 +34,14 @@
       ],
       "maxLength": 255,
       "pattern": "^(.*)$"
+    },
+    "delivery": {
+      "$id": "#/properties/delivery",
+      "type": "boolean",
+      "title": "The Delivery Schema",
+      "examples": [
+        true
+      ]
     },
     "orderId": {
       "$id": "#/properties/orderId",
