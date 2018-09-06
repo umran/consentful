@@ -22,8 +22,11 @@ module.exports = function(manifest, feeProfile, delivery = false) {
     totalMerchantPaymentPreTax: calculatedFields.totalMerchantPaymentPreTax,
     totalMerchantPaymentPostTax: calculatedFields.totalMerchantPaymentPostTax,
     totalConsumerPaymentPreTax: calculatedFields.totalConsumerPaymentPreTax,
-    totalConsumerPaymentPostTax: calculatedFields.totalConsumerPaymentPostTax
+    totalConsumerPaymentPostTax: calculatedFields.totalConsumerPaymentPostTax,
+    timestamp: new Date().toISOString()
   }
+
+  console.log(invoice.timestamp)
 
   return {
     orderId: orderId,

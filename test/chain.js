@@ -15,6 +15,13 @@ const Merchant = crypto.generateIdKeys()
 const Consumer = crypto.generateIdKeys()
 const Authority = crypto.generateIdKeys()
 
+// feeProfileConstants
+const feeProfileConstants = {
+  baseFee: 10,
+  variableFee: 3,
+  tax: 12
+}
+
 // paymentRequestFormConstants
 const paymentRequestFormConstants = {
   Version: '1.1',
@@ -33,8 +40,8 @@ const manifest = [
 ]
 
 const feeProfile = {
-  baseFee: 5,
-  variableFee: 2,
+  baseFee: 10,
+  variableFee: 3,
   tax: 12,
   merchantBurden: 50
 }
@@ -54,7 +61,8 @@ const receivedInvoiceMeta = receivedInvoice.readMeta()
 const invoiceReceiptMessage = {
   type: 'invoiceReceipt',
   orderId: receivedInvoiceMessage.orderId,
-  invoice: receivedInvoiceMeta
+  invoice: receivedInvoiceMeta,
+  timestamp: new Date().toISOString()
 }
 
 let invoiceReceipt = new InvoiceReceipt({type: 'send', identityKeys: Authority})
@@ -70,7 +78,8 @@ const receivedInvoiceReceiptMeta = receivedInvoiceReceipt.readMeta()
 const promiseOfPaymentMessage = {
   type: 'promiseOfPayment',
   orderId: receivedInvoiceReceiptMessage.orderId,
-  invoiceReceipt: receivedInvoiceReceiptMeta
+  invoiceReceipt: receivedInvoiceReceiptMeta,
+  timestamp: new Date().toISOString()
 }
 
 let promiseOfPayment = new PromiseOfPayment({type: 'send', identityKeys: Consumer})
@@ -91,8 +100,8 @@ const paymentRequestForm = {
   AcqID: '54432345454',
   PurchaseCurrency: '462',
   PurchaseCurrencyExponent: '2',
-  OrderID: 'L3VwBKKWiWpl59z9X29/+slnQkN/KZMfcLBksKGGSfw=',
-  PurchaseAmt: '75.2',
+  OrderID: receivedPromiseOfPaymentMessage.orderId,
+  PurchaseAmt: receivedInvoiceMessage.totalConsumerPaymentPostTax.toString(),
   Signature: 'somebullshitBMLsignature1234'
 }
 
@@ -100,7 +109,8 @@ const paymentRequestMessage = {
   type: 'paymentRequest',
   orderId: receivedPromiseOfPaymentMessage.orderId,
   promiseOfPayment: receivedPromiseOfPaymentMeta,
-  paymentRequestForm: paymentRequestForm
+  paymentRequestForm: paymentRequestForm,
+  timestamp: new Date().toISOString()
 }
 
 let paymentRequest = new PaymentRequest({type: 'send', identityKeys: Authority})
@@ -116,7 +126,8 @@ const receivedPaymentRequestMeta = receivedPaymentRequest.readMeta()
 const escrowContractMessage = {
   type: 'escrowContract',
   orderId: receivedPaymentRequestMessage.orderId,
-  paymentRequest: receivedPaymentRequestMeta
+  paymentRequest: receivedPaymentRequestMeta,
+  timestamp: new Date().toISOString()
 }
 
 let escrowContract = new EscrowContract({type: 'send', identityKeys: Authority})
@@ -132,7 +143,8 @@ const receivedEscrowContractMeta = receivedEscrowContract.readMeta()
 const proofOfDeliveryMessage = {
   type: 'proofOfDelivery',
   orderId: receivedEscrowContractMessage.orderId,
-  escrowContract: receivedEscrowContractMeta
+  escrowContract: receivedEscrowContractMeta,
+  timestamp: new Date().toISOString()
 }
 
 let proofOfDelivery = new ProofOfDelivery({type: 'send', identityKeys: Consumer})
@@ -146,11 +158,11 @@ let receivedProodOfDeliveryMessage = receivedProofOfDelivery.readMessage()
 let receivedProofOfDeliveryMeta = receivedProofOfDelivery.readMeta()
 
 // create transaction chain
-const chain = new TransactionChain(transaction.orderId, {
+/*const chain = new TransactionChain(transaction.orderId, {
   merchant: encoders.byteArrayToB64(Merchant.publicKey),
   consumer: encoders.byteArrayToB64(Consumer.publicKey),
   authority: encoders.byteArrayToB64(Authority.publicKey)
-}, paymentRequestFormConstants)
+}, feeProfileConstants, paymentRequestFormConstants)
 
 chain.setInvoice(receivedInvoiceMeta, receivedInvoiceMessage)
 chain.setInvoiceReceipt(receivedInvoiceReceiptMeta)
@@ -159,4 +171,4 @@ chain.setPaymentRequest(receivedPaymentRequestMeta, receivedPaymentRequestMessag
 chain.setEscrowContract(receivedEscrowContractMeta)
 chain.setProofOfDelivery(receivedProofOfDeliveryMeta)
 
-chain.checkProofOfDelivery()
+chain.checkProofOfDelivery()*/

@@ -8,7 +8,7 @@
   "required": [
     "type",
     "orderId",
-    "invoice",
+    "merchantDispute",
     "timestamp"
   ],
   "properties": {
@@ -17,7 +17,7 @@
       "type": "string",
       "title": "The Type Schema",
       "examples": [
-        "invoiceReceipt"
+        "escrowContract"
       ],
       "maxLength": 255,
       "pattern": "^(.*)$"
@@ -33,10 +33,10 @@
       "maxLength": 44,
       "pattern": "^(.*)$"
     },
-    "invoice": {
-      "$id": "#/properties/invoice",
+    "merchantDispute": {
+      "$id": "#/properties/merchantDispute",
       "type": "object",
-      "title": "The Invoice Schema",
+      "title": "The Merchantdispute Schema",
       "additionalProperties": false,
       "required": [
         "signature",

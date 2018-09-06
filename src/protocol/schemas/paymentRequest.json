@@ -9,7 +9,8 @@
     "type",
     "orderId",
     "promiseOfPayment",
-    "paymentRequestForm"
+    "paymentRequestForm",
+    "timestamp"
   ],
   "properties": {
     "type": {
@@ -211,6 +212,15 @@
           "pattern": "^(.*)$"
         }
       }
+    },
+    "timestamp": {
+      "$id": "#/properties/timestamp",
+      "type": "string",
+      "title": "The Timestamp Schema",
+      "examples": [
+        ""
+      ],
+      "format": "date-time"
     }
   }
 }

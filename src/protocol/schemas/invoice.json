@@ -22,7 +22,8 @@
     "totalMerchantPaymentPreTax",
     "totalMerchantPaymentPostTax",
     "totalConsumerPaymentPreTax",
-    "totalConsumerPaymentPostTax"
+    "totalConsumerPaymentPostTax",
+    "timestamp"
   ],
   "properties": {
     "type": {
@@ -258,6 +259,15 @@
       "examples": [
         6.16
       ]
+    },
+    "timestamp": {
+      "$id": "#/properties/timestamp",
+      "type": "string",
+      "title": "The Timestamp Schema",
+      "examples": [
+        ""
+      ],
+      "format": "date-time"
     }
   }
 }

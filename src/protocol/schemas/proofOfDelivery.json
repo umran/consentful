@@ -7,7 +7,8 @@
   "additionalProperties": false,
   "required": [
     "type",
-    "orderId"
+    "orderId",
+    "timestamp"
   ],
   "oneOf": [
     {
@@ -18,6 +19,11 @@
     {
       "required": [
         "pickupReceipt"
+      ]
+    },
+    {
+      "required": [
+        "disputeReceipt"
       ]
     }
   ],
@@ -158,6 +164,73 @@
           "pattern": "^(.*)$"
         }
       }
+    },
+    "disputeReceipt": {
+      "$id": "#/properties/disputeReceipt",
+      "type": "object",
+      "title": "The Disputereceipt Schema",
+      "additionalProperties": false,
+      "required": [
+        "signature",
+        "ephemeralPublicKey",
+        "ephemeralPublicKeyCertificate",
+        "identityPublicKey"
+      ],
+      "properties": {
+        "signature": {
+          "$id": "#/properties/invoice/properties/signature",
+          "type": "string",
+          "title": "The Signature Schema",
+          "examples": [
+            "jo8L+5hk1SAxvZfK9G4DjI1jurT/mlCIIZkJS5f+/X8=jo8L+5hk1SAxvZfK9G4DjI1jurT/mlCIIZkJS5f+/X8="
+          ],
+          "minLength": 88,
+          "maxLength": 88,
+          "pattern": "^(.*)$"
+        },
+        "ephemeralPublicKey": {
+          "$id": "#/properties/invoice/properties/ephemeralPublicKey",
+          "type": "string",
+          "title": "The Ephemeralpublickey Schema",
+          "examples": [
+            "jo8L+5hk1SAxvZfK9G4DjI1jurT/mlCIIZkJS5f+/X8="
+          ],
+          "minLength": 44,
+          "maxLength": 44,
+          "pattern": "^(.*)$"
+        },
+        "ephemeralPublicKeyCertificate": {
+          "$id": "#/properties/invoice/properties/ephemeralPublicKeyCertificate",
+          "type": "string",
+          "title": "The Ephemeralpublickeycertificate Schema",
+          "examples": [
+            "jo8L+5hk1SAxvZfK9G4DjI1jurT/mlCIIZkJS5f+/X8=jo8L+5hk1SAxvZfK9G4DjI1jurT/mlCIIZkJS5f+/X8="
+          ],
+          "minLength": 88,
+          "maxLength": 88,
+          "pattern": "^(.*)$"
+        },
+        "identityPublicKey": {
+          "$id": "#/properties/invoice/properties/identityPublicKey",
+          "type": "string",
+          "title": "The Identitypublickey Schema",
+          "examples": [
+            "jo8L+5hk1SAxvZfK9G4DjI1jurT/mlCIIZkJS5f+/X8="
+          ],
+          "minLength": 44,
+          "maxLength": 44,
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "timestamp": {
+      "$id": "#/properties/timestamp",
+      "type": "string",
+      "title": "The Timestamp Schema",
+      "examples": [
+        ""
+      ],
+      "format": "date-time"
     }
   }
 }
